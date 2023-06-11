@@ -1,0 +1,8 @@
+.playListCardsContainer::-webkit-scrollbar {
+  width: 8px;
+}
+.playListCardsContainer::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  /* background-color: rgb(244 63 94); */
+  background-color: rgb(6 78 59);;
+}
