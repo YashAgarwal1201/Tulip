@@ -17,7 +17,9 @@ const PlayList = () => {
   // console.log(PlayListData);
   const PlayListCards = PlayListData?.map((values, key) => (
     <div
-      className={`playListCard px-3 py-3 ${ playListView === 'grid' ? 'w-[47.5%]' : 'w-[97%]'} h-[125px] md:h-[150px] bg-emerald-900 hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
+      className={`playListCard p-2 md:p-4 ${
+        playListView === "grid" ? "w-[47.5%]" : "w-[97%]"
+      } h-[125px] md:h-[150px] bg-emerald-900 hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
       key={key}
     >
       <p>{values.id}</p>
@@ -27,7 +29,7 @@ const PlayList = () => {
     </div>
   ));
   return (
-    <div className="px-4 md:w-1/2 h-1/2 md:h-full flex flex-col md:justify-center md:items-center gap-y-3">
+    <div className="px-1 md:px-4 md:w-1/2 h-1/2 md:h-full flex flex-col md:justify-center md:items-center gap-y-3">
       <div className="w-full text-2xl flex justify-between items-center">
         <h2>Playlist</h2>
         <div className="flex gap-x-2">
@@ -57,7 +59,7 @@ const PlayList = () => {
           </span>
         </div>
       </div>
-      <div className="w-full md:h-3/5 flex flex-wrap gap-x-3 gap-y-2 overflow-y-auto playListCardsContainer">
+      <div className="pb-2 w-full md:h-3/5 flex flex-wrap gap-x-2 md:gap-x-3 gap-y-2 md:gap-y-2 overflow-y-auto playListCardsContainer">
         {PlayListCards}
         {PlayListCards}
       </div>
