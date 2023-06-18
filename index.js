@@ -4,9 +4,18 @@ const { useState } = React;
 
 const VideoPlayer = () => {
   return (
-    <div className="md:w-1/2 h-1/2 md:h-full flex md:justify-center md:items-center">
-      <div className="w-2/3 h-full md:h-1/2 bg-emerald-900 rounded-lg">
-        VideoPlayer
+    <div className="w-full md:w-1/2 h-fit md:h-full flex md:justify-center md:items-center">
+      <div className="p-3 mx-1 sm:mx-auto mt-2 w-full sm:w-1/2 md:w-2/3 h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
+        <video className="w-full h-auto md:aspect-video rounded-lg" controls>
+          <source src="" type="" />
+        </video>
+        <div className="p-2 w-full h-1/3 flex flex-wrap justify-between items-center bg-rose-100 text-teal-900 rounded-lg">
+          <h3 className="text-2xl capitalize font-medium">A title</h3>
+          <span className="p-3 material-symbols-rounded bg-teal-900 text-rose-100 hover:bg-rose-600 hover:cursor-pointer rounded-full">
+            expand_more
+          </span>
+          <p className="w-full hidden md:block">A description</p>
+        </div>
       </div>
     </div>
   );
@@ -22,23 +31,23 @@ const PlayList = () => {
       } h-[125px] md:h-[150px] bg-emerald-900 hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
       key={key}
     >
-      <p>{values.id}</p>
+      <p>{values.id + " " + key}</p>
       <p>{values.title}</p>
       <p>{values.description}</p>
       <p>{values.url}</p>
     </div>
   ));
   return (
-    <div className="px-1 md:px-4 md:w-1/2 h-1/2 md:h-full flex flex-col md:justify-center md:items-center gap-y-3">
-      <div className="w-full text-2xl flex justify-between items-center">
+    <div className="px-1 md:px-4 md:w-1/2 h-fit md:h-full max-h-[50%] flex flex-col md:justify-center md:items-center gap-y-3">
+      <div className="p-2 mt-2 md:mt-0 w-full text-2xl flex justify-between items-center bg-emerald-900 rounded-lg">
         <h2>Playlist</h2>
         <div className="flex gap-x-2">
           <span
-            className={`material-symbols-rounded ${
+            className={`material-symbols-rounded p-3 ${
               playListView === "grid"
-                ? "text-rose-600 hover:cursor-default"
-                : "text-rose-100 hover:text-rose-600 hover:cursor-pointer"
-            }`}
+                ? "bg-rose-600 text-rose-100 hover:cursor-default"
+                : "bg-emerald-900 text-rose-100 hover:text-rose-600 hover:cursor-pointer"
+            } rounded-full`}
             onClick={() => {
               setPlayListView("grid");
             }}
@@ -46,11 +55,11 @@ const PlayList = () => {
             grid_view
           </span>
           <span
-            className={`material-symbols-rounded ${
+            className={`material-symbols-rounded p-3 ${
               playListView === "list"
-                ? "text-rose-600 hover:cursor-default"
-                : "text-rose-100 hover:text-rose-600 hover:cursor-pointer"
-            }`}
+                ? "bg-rose-600 text-rose-100 hover:cursor-default"
+                : "bg-emerald-900 text-rose-100 hover:text-rose-600 hover:cursor-pointer"
+            } rounded-full`}
             onClick={() => {
               setPlayListView("list");
             }}
@@ -69,7 +78,7 @@ const PlayList = () => {
 
 const Component = () => {
   return (
-    <div className="w-full h-full flex flex-col md:flex-row">
+    <div className="w-full h-full flex flex-col md:flex-row gap-y-3">
       <VideoPlayer />
       <PlayList />
     </div>
