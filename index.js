@@ -4,8 +4,8 @@ const { useState } = React;
 
 const VideoPlayer = () => {
   return (
-    <div className="w-full md:w-1/2 h-fit md:h-full flex md:justify-center md:items-center">
-      <div className="p-3 mx-1 sm:mx-auto mt-2 w-full sm:w-1/2 md:w-2/3 h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
+    <div className="w-full md:w-1/2 lg:w-2/3 h-1/2 md:h-full flex">
+      <div className="p-3 w-full h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
         <video className="w-full h-auto md:aspect-video rounded-lg" controls>
           <source src="" type="" />
         </video>
@@ -23,7 +23,6 @@ const VideoPlayer = () => {
 
 const PlayList = () => {
   const [playListView, setPlayListView] = useState("grid");
-  // console.log(PlayListData);
   const PlayListCards = PlayListData?.map((values, key) => (
     <div
       className={`playListCard p-2 md:p-4 ${
@@ -38,8 +37,8 @@ const PlayList = () => {
     </div>
   ));
   return (
-    <div className="px-1 md:px-4 md:w-1/2 h-fit md:h-full max-h-[50%] flex flex-col md:justify-center md:items-center gap-y-3">
-      <div className="p-2 mt-2 md:mt-0 w-full text-2xl flex justify-between items-center bg-emerald-900 rounded-lg">
+    <div className="md:w-1/2 lg:w-1/3 h-1/2 md:h-full flex flex-col gap-y-3">
+      <div className="p-2 w-full text-2xl flex justify-between items-center bg-emerald-900 rounded-lg">
         <h2>Playlist</h2>
         <div className="flex gap-x-2">
           <span
@@ -68,7 +67,8 @@ const PlayList = () => {
           </span>
         </div>
       </div>
-      <div className="pb-2 w-full md:h-3/5 flex flex-wrap gap-x-2 md:gap-x-3 gap-y-2 md:gap-y-2 overflow-y-auto playListCardsContainer">
+      <div className="pb-2 w-full h-full flex flex-wrap gap-x-2 md:gap-x-3 gap-y-2 md:gap-y-2 overflow-y-auto playListCardsContainer">
+        {PlayListCards}
         {PlayListCards}
         {PlayListCards}
       </div>
@@ -78,7 +78,7 @@ const PlayList = () => {
 
 const Component = () => {
   return (
-    <div className="w-full h-full flex flex-col md:flex-row gap-y-3">
+    <div className="w-full h-full flex flex-col md:flex-row p-3 gap-3">
       <VideoPlayer />
       <PlayList />
     </div>
