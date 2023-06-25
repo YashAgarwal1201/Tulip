@@ -2,22 +2,24 @@
 import { PlayListData } from "./PlayList/PlayListData.js";
 const { useState } = React;
 
-const VideoPlayer = ({ selectedVideo }) => {
-  console.log(selectedVideo);
-  console.log(PlayListData[selectedVideo]?.type);
+const VideoPlayer = ({ video }) => {
+  console.log(video)
   return (
     <div className="w-full md:w-1/2 lg:w-2/3 h-1/2 md:h-full flex">
       <div className="p-3 w-full h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
-        {PlayListData[selectedVideo]?.type !== "video/Youtube" ? (
-          <video className="w-full h-auto md:aspect-video rounded-lg" controls>
-            <source src="/PlayList/Raindrops_Videvo.mp4" type="video/mp4" />
+        {video?.type !== "video/Youtube" ? (
+          <video key={video?.url} className="w-full h-auto md:aspect-video rounded-lg" controls>
+            <source
+              src={video?.url}
+              type={video?.type}
+            />
             <p>Sorry, but some error has occured.</p>
           </video>
         ) : (
           <iframe
             className="w-full h-full rounded-lg"
-            title={PlayListData[selectedVideo]?.title}
-            src={PlayListData[selectedVideo]?.url}
+            title={video?.title}
+            src={video?.url}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             frameBorder="0"
             allowFullScreen
@@ -25,14 +27,19 @@ const VideoPlayer = ({ selectedVideo }) => {
         )}
         <div className="p-2 w-full h-1/3 flex flex-wrap justify-between items-center bg-rose-100 text-teal-900 rounded-lg">
           <h3 className="text-2xl capitalize font-medium">
-            {PlayListData[selectedVideo]?.title}
+            {video?.title}
           </h3>
           <span className="p-3 material-symbols-rounded bg-teal-900 text-rose-100 hover:bg-rose-600 hover:cursor-pointer rounded-full">
             expand_more
           </span>
           <p className="w-full hidden md:block">
-            {PlayListData[selectedVideo]?.description
-              ? PlayListData[selectedVideo]?.description
+              {video?.description
+              ? video?.description
+              : "No description"}
+          </p>
+          <p className="w-full hidden md:block">
+              {video?.type
+              ? video?.type
               : "No description"}
           </p>
         </div>
@@ -41,7 +48,7 @@ const VideoPlayer = ({ selectedVideo }) => {
   );
 };
 
-const PlayList = ({ selectedVideo, setSelectedVideo }) => {
+const PlayList = ({PlayListData, selectedVideo, setSelectedVideo }) => {
   const [playListView, setPlayListView] = useState("grid");
   const PlayListCards = PlayListData?.map((values, key) => (
     <div
@@ -99,12 +106,13 @@ const PlayList = ({ selectedVideo, setSelectedVideo }) => {
   );
 };
 
-const Component = () => {
+const Component = ({PlayListData}) => {
   const [selectedVideo, setSelectedVideo] = useState(0);
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-3 gap-3">
-      <VideoPlayer selectedVideo={selectedVideo} />
+      <VideoPlayer video={PlayListData[selectedVideo]} />
       <PlayList
+        PlayListData={PlayListData}
         selectedVideo={selectedVideo}
         setSelectedVideo={setSelectedVideo}
       />
@@ -113,4 +121,4 @@ const Component = () => {
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root-element"));
-root.render(<Component />);
+root.render(<Component PlayListData={PlayListData} />);
