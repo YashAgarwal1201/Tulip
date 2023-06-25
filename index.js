@@ -2,33 +2,56 @@
 import { PlayListData } from "./PlayList/PlayListData.js";
 const { useState } = React;
 
-const VideoPlayer = () => {
+const VideoPlayer = ({ selectedVideo }) => {
+  console.log(selectedVideo);
+  console.log(PlayListData[selectedVideo]?.type);
   return (
     <div className="w-full md:w-1/2 lg:w-2/3 h-1/2 md:h-full flex">
       <div className="p-3 w-full h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
-        <video className="w-full h-auto md:aspect-video rounded-lg" controls>
-          <source src="" type="" />
-        </video>
+        {PlayListData[selectedVideo]?.type !== "video/Youtube" ? (
+          <video className="w-full h-auto md:aspect-video rounded-lg" controls>
+            <source src="/PlayList/Raindrops_Videvo.mp4" type="video/mp4" />
+            <p>Sorry, but some error has occured.</p>
+          </video>
+        ) : (
+          <iframe
+            className="w-full h-full rounded-lg"
+            title={PlayListData[selectedVideo]?.title}
+            src={PlayListData[selectedVideo]?.url}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        )}
         <div className="p-2 w-full h-1/3 flex flex-wrap justify-between items-center bg-rose-100 text-teal-900 rounded-lg">
-          <h3 className="text-2xl capitalize font-medium">A title</h3>
+          <h3 className="text-2xl capitalize font-medium">
+            {PlayListData[selectedVideo]?.title}
+          </h3>
           <span className="p-3 material-symbols-rounded bg-teal-900 text-rose-100 hover:bg-rose-600 hover:cursor-pointer rounded-full">
             expand_more
           </span>
-          <p className="w-full hidden md:block">A description</p>
+          <p className="w-full hidden md:block">
+            {PlayListData[selectedVideo]?.description
+              ? PlayListData[selectedVideo]?.description
+              : "No description"}
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-const PlayList = () => {
+const PlayList = ({ selectedVideo, setSelectedVideo }) => {
   const [playListView, setPlayListView] = useState("grid");
   const PlayListCards = PlayListData?.map((values, key) => (
     <div
       className={`playListCard p-2 md:p-4 ${
         playListView === "grid" ? "w-[47.5%]" : "w-[97%]"
-      } h-[125px] md:h-[150px] bg-emerald-900 hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
+      } h-[125px] md:h-[150px] overflow-hidden ${
+        selectedVideo === key ? "bg-lime-800" : "bg-emerald-900"
+      } hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
       key={key}
+      onClick={() => setSelectedVideo(key)}
     >
       <p>{values.id + " " + key}</p>
       <p>{values.title}</p>
@@ -77,10 +100,14 @@ const PlayList = () => {
 };
 
 const Component = () => {
+  const [selectedVideo, setSelectedVideo] = useState(0);
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-3 gap-3">
-      <VideoPlayer />
-      <PlayList />
+      <VideoPlayer selectedVideo={selectedVideo} />
+      <PlayList
+        selectedVideo={selectedVideo}
+        setSelectedVideo={setSelectedVideo}
+      />
     </div>
   );
 };
