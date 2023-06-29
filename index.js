@@ -3,16 +3,17 @@ import { PlayListData } from "./PlayList/PlayListData.js";
 const { useState } = React;
 
 const VideoPlayer = ({ video }) => {
-  console.log(video)
+  console.log(video);
   return (
     <div className="w-full md:w-1/2 lg:w-2/3 h-1/2 md:h-full flex">
       <div className="p-3 w-full h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
         {video?.type !== "video/Youtube" ? (
-          <video key={video?.url} className="w-full h-auto md:aspect-video rounded-lg" controls>
-            <source
-              src={video?.url}
-              type={video?.type}
-            />
+          <video
+            key={video?.url}
+            className="w-full h-auto md:aspect-video rounded-lg"
+            controls
+          >
+            <source src={video?.url} type={video?.type} />
             <p>Sorry, but some error has occured.</p>
           </video>
         ) : (
@@ -26,21 +27,12 @@ const VideoPlayer = ({ video }) => {
           ></iframe>
         )}
         <div className="p-2 w-full h-1/3 flex flex-wrap justify-between items-center bg-rose-100 text-teal-900 rounded-lg">
-          <h3 className="text-2xl capitalize font-medium">
-            {video?.title}
-          </h3>
+          <h3 className="text-2xl capitalize font-medium">{video?.title}</h3>
           <span className="p-3 material-symbols-rounded bg-teal-900 text-rose-100 hover:bg-rose-600 hover:cursor-pointer rounded-full">
             expand_more
           </span>
           <p className="w-full hidden md:block">
-              {video?.description
-              ? video?.description
-              : "No description"}
-          </p>
-          <p className="w-full hidden md:block">
-              {video?.type
-              ? video?.type
-              : "No description"}
+            {video?.description ? video?.description : "No description"}
           </p>
         </div>
       </div>
@@ -48,22 +40,43 @@ const VideoPlayer = ({ video }) => {
   );
 };
 
-const PlayList = ({PlayListData, selectedVideo, setSelectedVideo }) => {
+const PlayList = ({ PlayListData, selectedVideo, setSelectedVideo }) => {
   const [playListView, setPlayListView] = useState("grid");
   const PlayListCards = PlayListData?.map((values, key) => (
     <div
-      className={`playListCard p-2 md:p-4 ${
-        playListView === "grid" ? "w-[47.5%]" : "w-[97%]"
-      } h-[125px] md:h-[150px] overflow-hidden ${
+      className={`playListCard p-2 md:p-4 flex ${
+        playListView === "grid" ? "flex-col w-[47.5%]" : "flex-row w-[97%]"
+      } gap-2 h-40 overflow-hidden ${
         selectedVideo === key ? "bg-lime-800" : "bg-emerald-900"
       } hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
       key={key}
       onClick={() => setSelectedVideo(key)}
     >
-      <p>{values.id + " " + key}</p>
-      <p>{values.title}</p>
-      <p>{values.description}</p>
-      <p>{values.url}</p>
+      {!values?.thumbnail ? (
+        <img
+          className={`rounded-lg ${
+            playListView === "grid" ? "w-full aspect-video" : "w-[47.5%]"
+          }`}
+          src={values?.thumbnail}
+          alt={values?.title}
+        />
+      ) : (
+        <span
+          className={`material-symbols-rounded ${
+            playListView === "grid" ? "w-full aspect-video" : "w-[47.5%]"
+          } border-2 rounded-lg flex justify-center items-center`}
+        >
+          gallery_thumbnail
+        </span>
+      )}
+      <p
+        className={`whitespace-nowrap overflow-hidden ${
+          playListView === "grid" ? "w-full" : "w-[47.5%]"
+        }`}
+        title={values.title}
+      >
+        {values.title}
+      </p>
     </div>
   ));
   return (
@@ -97,16 +110,17 @@ const PlayList = ({PlayListData, selectedVideo, setSelectedVideo }) => {
           </span>
         </div>
       </div>
-      <div className="pb-2 w-full h-full flex flex-wrap gap-x-2 md:gap-x-3 gap-y-2 md:gap-y-2 overflow-y-auto playListCardsContainer">
+      <div className="pb-2 w-full h-auto flex flex-wrap gap-x-2 md:gap-x-3 gap-y-2 md:gap-y-2 overflow-y-auto playListCardsContainer">
         {PlayListCards}
+        {/* {PlayListCards}
         {PlayListCards}
-        {PlayListCards}
+        {PlayListCards} */}
       </div>
     </div>
   );
 };
 
-const Component = ({PlayListData}) => {
+const Component = ({ PlayListData }) => {
   const [selectedVideo, setSelectedVideo] = useState(0);
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-3 gap-3">
