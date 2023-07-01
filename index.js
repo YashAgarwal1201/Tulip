@@ -5,7 +5,7 @@ const { useState } = React;
 const VideoPlayer = ({ video }) => {
   // console.log(video);
   return (
-    <div className="w-full lg:w-2/3 h-full flex">
+    <div className="w-full lg:w-2/3 h-full flex  snap-center snap-always">
       <div className="p-3 w-full h-full md:h-auto flex flex-col gap-y-3 bg-emerald-900 rounded-lg overflow-hidden">
         {video?.type !== "video/Youtube" ? (
           <video
@@ -20,20 +20,20 @@ const VideoPlayer = ({ video }) => {
           <iframe
             className="w-full h-full rounded-lg border-2"
             title={video?.title}
-            src={video?.url}
+            // src={video?.url}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             frameBorder="0"
             allowFullScreen
           ></iframe>
         )}
-        <div className="p-2 w-full h-1/3 flex flex-wrap justify-between items-center bg-rose-100 text-teal-900 rounded-lg">
-          <h3 className="text-2xl capitalize font-medium">{video?.title}</h3>
-          {/* <span className="p-3 material-symbols-rounded bg-teal-900 text-rose-100 hover:bg-rose-600 hover:cursor-pointer rounded-full">
-            expand_more
-          </span> */}
+        <div className="p-3 w-full h-[200px] flex flex-col gap-y-3 item-start lg:items-center bg-rose-100 text-teal-900 rounded-lg relative">
+          <h3 className="w-full text-2xl capitalize font-medium">{video?.title}</h3>
           <p className="w-full hidden md:block">
             {video?.description ? video?.description : "No description"}
           </p>
+          <span className="p-3 block lg:hidden material-symbols-rounded h-fit bg-teal-900 text-rose-100 hover:bg-rose-600 hover:cursor-pointer rounded-full absolute bottom-3 right-3">
+            expand_more
+          </span>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ const PlayList = ({ PlayListData, selectedVideo, setSelectedVideo }) => {
     </div>
   ));
   return (
-    <div className="w-full lg:w-1/3 h-full flex flex-col gap-y-3">
+    <div className="w-full lg:w-1/3 h-full flex flex-col gap-y-3  snap-start snap-always">
       <div className="p-2 w-full text-2xl flex justify-between items-center bg-emerald-900 rounded-lg">
         <h2>Playlist</h2>
         <div className="flex gap-x-2">
@@ -123,7 +123,7 @@ const PlayList = ({ PlayListData, selectedVideo, setSelectedVideo }) => {
 const Component = ({ PlayListData }) => {
   const [selectedVideo, setSelectedVideo] = useState(0);
   return (
-    <div className="w-full h-full flex flex-wrap lg:flex-nowrap flex-column lg:flex-row p-3 gap-3 overflow-y-auto lg:overflow-hidden">
+    <div className="w-full h-full flex flex-wrap lg:flex-nowrap flex-column lg:flex-row p-3 gap-3 overflow-y-auto lg:overflow-hidden snap-y snap-mandatory">
       <VideoPlayer video={PlayListData[selectedVideo]} />
       <PlayList
         PlayListData={PlayListData}
