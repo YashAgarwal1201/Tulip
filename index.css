@@ -10,3 +10,15 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+.playlist-sidebar {
+    width: 500px !important;
+}
+@media screen and (max-width: 500px) {
+    .playlist-sidebar {
+        width: 100vw !important;
+    }
+    .playlist-sidebar .p-sidebar-content {
+        padding: 4px !important;
+    }
+}

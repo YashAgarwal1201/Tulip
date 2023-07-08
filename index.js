@@ -59,7 +59,7 @@ const PlayList = ({
     <div
       className={`playListCard p-2 md:p-4 flex ${
         playListView === "grid" ? "flex-col w-[47.5%]" : "flex-row w-[97%]"
-      } gap-2 h-40 overflow-hidden ${
+      } gap-2 h-28 sm:h-40 overflow-hidden ${
         selectedVideo === key ? "bg-lime-800" : "bg-emerald-900"
       } hover:bg-lime-800 hover:cursor-pointer rounded-lg`}
       key={key}
@@ -163,7 +163,7 @@ const Component = ({ PlayListData }) => {
       </div>
       <div>
         <Sidebar
-          className="block lg:hidden bg-teal-950 text-rose-100 w-[90vw]"
+          className="playlist-sidebar block lg:hidden bg-teal-950 text-rose-100 w-[90vw]"
           visible={sidePlaylistMenu}
           position="right"
           onHide={() => setSidePlaylistMenu(false)}
