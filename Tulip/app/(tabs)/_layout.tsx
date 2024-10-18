@@ -1,18 +1,23 @@
-import { Tabs } from "expo-router";
+import { Link, Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { View, Text, Button } from "react-native";
+import React from "react";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#ffd33d",
+        tabBarActiveTintColor: "#112614",
+        tabBarInactiveTintColor: "#fff",
         headerStyle: {
-          backgroundColor: "#25292e",
+          backgroundColor: "#b69743",
         },
         headerShadowVisible: false,
         headerTintColor: "#fff",
         tabBarStyle: {
-          backgroundColor: "#25292e",
+          height: 60,
+          backgroundColor: "#b69743",
+          borderTopWidth: 0,
         },
       }}
     >
@@ -22,10 +27,23 @@ export default function TabLayout() {
           title: "Home",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "home" : "home-outline"}
-              color={color}
-              size={24}
+              name={"home"}
+              color={"#fff"}
+              size={16}
+              style={{
+                backgroundColor: focused ? color : "transparent",
+                paddingLeft: 14,
+                paddingRight: 14,
+                paddingTop: 6,
+                paddingBottom: 6,
+                borderRadius: 30,
+              }}
             />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text style={{ fontSize: 14, color: focused ? color : "#fff" }}>
+              Home
+            </Text>
           ),
         }}
       />
@@ -35,13 +53,32 @@ export default function TabLayout() {
           title: "Device Details",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "phone-portrait" : "phone-portrait-outline"}
-              color={color}
-              size={24}
+              name={"phone-portrait"}
+              color={"#fff"}
+              size={16}
+              style={{
+                backgroundColor: focused ? color : "transparent",
+                paddingLeft: 14,
+                paddingRight: 14,
+                paddingTop: 6,
+                paddingBottom: 6,
+                borderRadius: 30,
+              }}
             />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text style={{ fontSize: 14, color: focused ? color : "#fff" }}>
+              Device
+            </Text>
           ),
         }}
       />
+      {/* <Link
+        href={"https://reactnavigation.org/docs/tab-based-navigation/"}
+        target="_blank"
+      >
+        hf
+      </Link> */}
     </Tabs>
   );
 }
