@@ -54,6 +54,32 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="fileShare"
+        options={{
+          title: "File Share",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={"share-social"}
+              size={16}
+              style={{
+                backgroundColor: focused ? color : "transparent",
+                color: focused ? "#cddcb4" : "#744c4c",
+                paddingLeft: 14,
+                paddingRight: 14,
+                paddingTop: 6,
+                paddingBottom: 6,
+                borderRadius: 30,
+              }}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <Text style={{ fontSize: 14, color: focused ? color : "#744c4c" }}>
+              File Share
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="deviceDetails"
         options={{
           title: "Device Details",
