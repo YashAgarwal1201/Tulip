@@ -1,22 +1,20 @@
-import { Text, View, StyleSheet } from "react-native";
-import * as Device from "expo-device";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 
 export default function Index() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={styles.text}>
-        {Device.manufacturer}: {Device.modelName} ({Device.deviceName}) gdgty
-      </Text>
-    </View>
+    <ScrollView style={styles.homePageScreen}>
+      <Text style={styles.text}></Text>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  homePageScreen: {
+    backgroundColor: "#e1e7df",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#25292e",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#b69743",
   },
   text: {
     color: "teal",

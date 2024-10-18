@@ -11,10 +11,12 @@ import * as Device from "expo-device";
 import * as Battery from "expo-battery";
 import React, { useState, useEffect } from "react";
 import { Link } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Index() {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
   const [batteryState, setBatteryState] = useState<number | null>(null);
+  const [deviceType, setDeviceType] = useState<string | null>(null);
 
   useEffect(() => {
     async function getBatteryStatus() {
@@ -23,7 +25,22 @@ export default function Index() {
       setBatteryLevel(level);
       setBatteryState(state);
     }
+
+    async function getDeviceInfo() {
+      const type = await Device.getDeviceTypeAsync();
+      setDeviceType(
+        type === Device.DeviceType.PHONE
+          ? "Mobile"
+          : type === Device.DeviceType.TABLET
+          ? "Tablet"
+          : type === Device.DeviceType.DESKTOP
+          ? "Desktop"
+          : "Unknown"
+      );
+    }
+
     getBatteryStatus();
+    getDeviceInfo();
   }, []);
 
   // Get device screen width and height
@@ -57,9 +74,24 @@ export default function Index() {
           resizeMode="contain"
           alt="phone"
         />
-        <Text style={styles.deviceTitle}>
-          {Device.deviceName ? Device.deviceName : "Unknown Device"}
-        </Text>
+        <View style={styles.deviceTitle}>
+          <Ionicons
+            name={
+              Device.osName?.toLowerCase() === "android"
+                ? "logo-android"
+                : Device.osName?.toLowerCase() === "ios"
+                ? "logo-apple"
+                : Device.osName?.toLowerCase() === "windows" ||
+                  Device.osName?.toLowerCase() === "windows phone"
+                ? "logo-windows"
+                : "phone-portrait"
+            }
+            size={32}
+          />
+          <Text style={{ fontSize: 26 }}>
+            {Device.deviceName ? Device.deviceName : "Unknown Device"}
+          </Text>
+        </View>
       </View>
 
       <View style={styles.infoRowContainer}>
@@ -78,8 +110,15 @@ export default function Index() {
         </View>
 
         <View style={styles.infoRow}>
+          <Text style={styles.infoRowTitle}>Device Type </Text>
+          <Text style={styles.infoRowContent}>{deviceType}</Text>
+        </View>
+
+        <View style={styles.infoRow}>
           <Text style={styles.infoRowTitle}>OS </Text>
-          <Text style={styles.infoRowContent}>{Device.osName}</Text>
+          <Text style={styles.infoRowContent}>
+            {Device.osName} {Device.osVersion}
+          </Text>
         </View>
 
         <View style={styles.infoRow}>
@@ -106,7 +145,7 @@ export default function Index() {
             href={"https://www.gsmarena.com/"}
             target="_blank"
           >
-            Click here
+            Click here <Ionicons name="link" />
           </Link>
         </View>
       </View>
@@ -121,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: "center",
     // alignItems: "center",
-    backgroundColor: "#b69743",
+    backgroundColor: "#e1e7df",
     padding: 12,
   },
   devicePosterContainer: {
@@ -130,9 +169,9 @@ const styles = StyleSheet.create({
     minHeight: 200,
     display: "flex",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
-    backgroundColor: "#5a7620",
+    backgroundColor: "#d36bb6",
     paddingTop: 12,
     paddingBottom: 12,
     paddingLeft: 20,
@@ -147,6 +186,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   deviceTitle: {
+    paddingTop: 24,
     width: "55%",
     fontSize: 32,
     color: "#112614",
@@ -155,7 +195,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: "100%",
     // height: "60%",
-    backgroundColor: "#721211",
+    backgroundColor: "#f8aef4",
     paddingTop: 16,
     paddingBottom: 16,
     paddingLeft: 20,
@@ -172,8 +212,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     // borderRadius: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#112614",
-    color: "#ffffff",
+    borderBottomColor: "#744c4c",
+    color: "#000",
     width: "100%",
   },
   lastInfoRow: {
@@ -189,10 +229,13 @@ const styles = StyleSheet.create({
   infoRowTitle: {
     width: "40%",
     textTransform: "capitalize",
-    color: "#fff",
+    color: "#000",
   },
   infoRowContent: {
+    paddingLeft: 8,
     width: "60%",
-    color: "#fff",
+    color: "#000",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
