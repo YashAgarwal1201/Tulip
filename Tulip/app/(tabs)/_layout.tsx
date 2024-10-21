@@ -1,4 +1,4 @@
-import { View, StyleSheet, useWindowDimensions } from "react-native";
+import { View, StyleSheet, useWindowDimensions, StatusBar } from "react-native";
 import React from "react";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import { Navigator, Slot } from "expo-router";
@@ -27,7 +27,12 @@ export default function TabLayout() {
         >
           <NavigationBar />
         </View>
-        <View style={styles.pageContainer}>
+        <View
+          style={[
+            styles.pageContainer,
+            { paddingTop: StatusBar.currentHeight },
+          ]}
+        >
           <Slot />
         </View>
       </Navigator>

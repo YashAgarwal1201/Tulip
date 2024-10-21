@@ -65,7 +65,13 @@ export default function Index() {
 
   return (
     // <TabLayout>
-    <View style={styles.deviceDetailsScreen}>
+    <ScrollView
+      style={styles.deviceDetailsScreen}
+      contentContainerStyle={{ justifyContent: "flex-start" }}
+    >
+      <View style={styles.deviceDetailsHeader}>
+        <Text style={styles.deviceDetailsHeaderContent}>Device Details</Text>
+      </View>
       <View style={styles.devicePosterContainer}>
         <Image
           source={{
@@ -150,20 +156,31 @@ export default function Index() {
           </Link>
         </View>
       </View>
-    </View>
+    </ScrollView>
     // </TabLayout>
   );
 }
 
 const styles = StyleSheet.create({
   deviceDetailsScreen: {
-    height: "100%",
+    minHeight: "100%",
     flex: 1,
     padding: 12,
+    // alignItems: "flex-start",
+    // overflow: "scroll",
+  },
+  deviceDetailsHeader: {
+    height: 70,
+  },
+  deviceDetailsHeaderContent: {
+    fontSize: 28,
+    color: "purple",
+    marginTop: "auto",
+    marginBottom: "auto",
   },
   devicePosterContainer: {
     width: "100%",
-    height: "40%",
+    // height: "40%",
     minHeight: 200,
     display: "flex",
     flexDirection: "row",
