@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <View style={styles.homePageScreen}>
       <View style={styles.container}>
-        <Text style={styles.text}>Coming soon</Text>
+        <Text style={styles.text}>Coming soon!!</Text>
       </View>
     </View>
   );

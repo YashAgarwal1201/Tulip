@@ -22,7 +22,7 @@ export default function TabLayout() {
             { width: width < xl2 ? "100%" : 75 },
             { height: width < xl2 ? 75 : "100%" },
             { flexDirection: width < xl2 ? "row" : "column" },
-            { justifyContent: width < md ? "space-evenly" : "flex-start" },
+            { justifyContent: width < md ? "center" : "flex-start" },
           ]}
         >
           <NavigationBar />
