@@ -12,6 +12,7 @@ import * as Battery from "expo-battery";
 import React, { useState, useEffect } from "react";
 import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import TabLayout from "./_layout";
 
 export default function Index() {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -63,8 +64,8 @@ export default function Index() {
       : "Unknown";
 
   return (
-    // <ScrollView style={{ backgroundColor: "yellow" }}>
-    <ScrollView style={styles.deviceDetailsScreen}>
+    // <TabLayout>
+    <View style={styles.deviceDetailsScreen}>
       <View style={styles.devicePosterContainer}>
         <Image
           source={{
@@ -149,8 +150,8 @@ export default function Index() {
           </Link>
         </View>
       </View>
-    </ScrollView>
-    // </ScrollView>
+    </View>
+    // </TabLayout>
   );
 }
 
@@ -158,9 +159,6 @@ const styles = StyleSheet.create({
   deviceDetailsScreen: {
     height: "100%",
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
-    backgroundColor: "#e1e7df",
     padding: 12,
   },
   devicePosterContainer: {

@@ -61,7 +61,7 @@ export default function FileSharingApp() {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ justifyContent: "center", alignItems: "center" }}>
       <Button title="Create File" onPress={createFile} />
       {fileUri && (
         <Text>
