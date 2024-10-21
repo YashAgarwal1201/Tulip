@@ -12,6 +12,8 @@ import * as Battery from "expo-battery";
 import React, { useState, useEffect } from "react";
 import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { TulipPalette } from "@/constants/Colors";
+import { xl2 } from "@/constants/ViewportBreakpoints";
 
 export default function Index() {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -63,8 +65,14 @@ export default function Index() {
       : "Unknown";
 
   return (
-    // <ScrollView style={{ backgroundColor: "yellow" }}>
-    <ScrollView style={styles.deviceDetailsScreen}>
+    // <TabLayout>
+    <ScrollView
+      style={[styles.deviceDetailsScreen, { maxWidth: xl2 }]}
+      contentContainerStyle={{ justifyContent: "flex-start" }}
+    >
+      <View style={styles.deviceDetailsHeader}>
+        <Text style={styles.deviceDetailsHeaderContent}>Device Details</Text>
+      </View>
       <View style={styles.devicePosterContainer}>
         <Image
           source={{
@@ -87,8 +95,9 @@ export default function Index() {
                 : "phone-portrait"
             }
             size={32}
+            style={{ color: TulipPalette.green }}
           />
-          <Text style={{ fontSize: 26 }}>
+          <Text style={{ fontSize: 26, color: TulipPalette.green }}>
             {Device.deviceName ? Device.deviceName : "Unknown Device"}
           </Text>
         </View>
@@ -150,22 +159,30 @@ export default function Index() {
         </View>
       </View>
     </ScrollView>
-    // </ScrollView>
+    // </TabLayout>
   );
 }
 
 const styles = StyleSheet.create({
   deviceDetailsScreen: {
-    height: "100%",
+    minHeight: "100%",
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
-    backgroundColor: "#e1e7df",
     padding: 12,
+    // alignItems: "flex-start",
+    // overflow: "scroll",
+  },
+  deviceDetailsHeader: {
+    height: 70,
+  },
+  deviceDetailsHeaderContent: {
+    fontSize: 28,
+    marginTop: "auto",
+    marginBottom: "auto",
+    color: TulipPalette.pink,
   },
   devicePosterContainer: {
     width: "100%",
-    height: "40%",
+    // height: "40%",
     minHeight: 200,
     display: "flex",
     flexDirection: "row",
@@ -189,7 +206,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     width: "55%",
     fontSize: 32,
-    color: "#112614",
+    color: TulipPalette.lightGreen,
   },
   infoRowContainer: {
     marginTop: 20,
