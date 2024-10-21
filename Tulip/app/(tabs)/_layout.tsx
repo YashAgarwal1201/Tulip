@@ -3,7 +3,7 @@ import React from "react";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import { Navigator, Slot } from "expo-router";
 import { TabRouter } from "@react-navigation/native";
-import { md, xl2 } from "@/constants/ViewportBreakpoints";
+import { mdl } from "@/constants/ViewportBreakpoints";
 
 export default function TabLayout() {
   const { width } = useWindowDimensions();
@@ -12,17 +12,20 @@ export default function TabLayout() {
     <View
       style={[
         styles.layoutContainer,
-        { flexDirection: width < xl2 ? "column-reverse" : "row" },
+        { flexDirection: width < mdl ? "column-reverse" : "row" },
       ]}
     >
       <Navigator router={TabRouter}>
         <View
           style={[
             styles.navigationBarContainer,
-            { width: width < xl2 ? "100%" : 75 },
-            { height: width < xl2 ? 75 : "100%" },
-            { flexDirection: width < xl2 ? "row" : "column" },
-            { justifyContent: width < md ? "center" : "flex-start" },
+            {
+              width: width < mdl ? "100%" : 75,
+              height: width < mdl ? 75 : "100%",
+              flexDirection: width < mdl ? "row" : "column",
+              justifyContent: width < mdl ? "center" : "center",
+              rowGap: width < mdl ? 0 : 16,
+            },
           ]}
         >
           <NavigationBar />

@@ -12,7 +12,8 @@ import * as Battery from "expo-battery";
 import React, { useState, useEffect } from "react";
 import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import TabLayout from "./_layout";
+import { TulipPalette } from "@/constants/Colors";
+import { xl2 } from "@/constants/ViewportBreakpoints";
 
 export default function Index() {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -66,7 +67,7 @@ export default function Index() {
   return (
     // <TabLayout>
     <ScrollView
-      style={styles.deviceDetailsScreen}
+      style={[styles.deviceDetailsScreen, { maxWidth: xl2 }]}
       contentContainerStyle={{ justifyContent: "flex-start" }}
     >
       <View style={styles.deviceDetailsHeader}>
@@ -94,8 +95,9 @@ export default function Index() {
                 : "phone-portrait"
             }
             size={32}
+            style={{ color: TulipPalette.green }}
           />
-          <Text style={{ fontSize: 26 }}>
+          <Text style={{ fontSize: 26, color: TulipPalette.green }}>
             {Device.deviceName ? Device.deviceName : "Unknown Device"}
           </Text>
         </View>
@@ -174,9 +176,9 @@ const styles = StyleSheet.create({
   },
   deviceDetailsHeaderContent: {
     fontSize: 28,
-    color: "purple",
     marginTop: "auto",
     marginBottom: "auto",
+    color: TulipPalette.pink,
   },
   devicePosterContainer: {
     width: "100%",
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     width: "55%",
     fontSize: 32,
-    color: "#112614",
+    color: TulipPalette.lightGreen,
   },
   infoRowContainer: {
     marginTop: 20,

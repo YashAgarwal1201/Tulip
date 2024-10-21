@@ -1,5 +1,4 @@
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import TabLayout from "./_layout";
 
 export default function Index() {
   return (
