@@ -19,8 +19,8 @@ const ChatComponent = () => {
 
   const [newMessage, setNewMessage] = useState("");
 
-  const messagesEndRef = useRef(null);
-  const lastPairRef = useRef(null);
+  const messagesEndRef = useRef<ScrollView | null>(null);
+  const lastPairRef = useRef<any | null>(null);
 
   const handleSendMessage = (event: any) => {
     event.preventDefault();
@@ -81,8 +81,16 @@ const ChatComponent = () => {
   //   // Scroll to the bottom when new messages arrive
   //   if (lastPairRef.current) {
   //     lastPairRef.current?.scrollIntoView({ behavior: "smooth" });
+  //     // lastPairRef.current.scrol
   //   }
   // }, [groupedMessages]);
+
+  useEffect(() => {
+    // Scroll to the bottom when new messages arrive
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollToEnd({ animated: true }); // Use scrollToEnd for smooth scrolling
+    }
+  }, [messages]);
 
   return (
     <View style={styles.chatContainer}>
@@ -93,7 +101,7 @@ const ChatComponent = () => {
               key={key}
               style={{
                 rowGap: 16,
-                borderWidth: key === groupedMessages?.length - 1 ? 2 : 0,
+                // borderWidth: key === groupedMessages?.length - 1 ? 2 : 0,
                 borderColor: "red",
                 // height: key === groupedMessages?.length - 1 ? "100%" : "auto",
                 marginBottom: key === groupedMessages?.length - 1 ? 0 : 16,
@@ -103,10 +111,16 @@ const ChatComponent = () => {
               ref={key === groupedMessages?.length - 1 ? lastPairRef : null}
             >
               {value?.map((val, k) => (
-                <View key={k} style={{ rowGap: 8 }}>
+                <View
+                  key={k}
+                  style={{
+                    rowGap: 8,
+                    alignItems: val.type === "bot" ? "flex-start" : "flex-end",
+                  }}
+                >
                   <View
                     style={{
-                      flexDirection: "row",
+                      flexDirection: val.type === "bot" ? "row" : "row-reverse",
                       alignItems: "center",
                       columnGap: 12,
                     }}
@@ -118,6 +132,10 @@ const ChatComponent = () => {
                         backgroundColor: TulipPalette.green,
                         padding: 10,
                         borderRadius: 20,
+                        color:
+                          val.type === "bot"
+                            ? TulipPalette.brown
+                            : TulipPalette.pink,
                       }}
                     />
                     <Text>{val.type}</Text>
@@ -132,7 +150,8 @@ const ChatComponent = () => {
                           : TulipPalette.pink,
                       padding: 12,
                       borderRadius: 20,
-                      marginLeft: 12,
+                      marginLeft: val.type === "bot" ? 12 : 0,
+                      marginRight: val.type === "bot" ? 0 : 12,
                     }}
                   >
                     {val.text}
@@ -142,7 +161,7 @@ const ChatComponent = () => {
             </View>
           ))
         ) : (
-          <View>
+          <View style={{ rowGap: 8 }}>
             <View
               style={{
                 flexDirection: "row",
@@ -157,6 +176,7 @@ const ChatComponent = () => {
                   backgroundColor: TulipPalette.green,
                   padding: 10,
                   borderRadius: 20,
+                  color: TulipPalette.brown,
                 }}
               />
               <Text>bot</Text>
@@ -171,7 +191,7 @@ const ChatComponent = () => {
                 marginLeft: 12,
               }}
             >
-              lolo
+              Hey, Welcome
             </Text>
           </View>
         )}
@@ -189,7 +209,7 @@ const ChatComponent = () => {
             height: "100%",
             backgroundColor: TulipPalette.green,
             color: TulipPalette.black,
-            fontSize: 18,
+            fontSize: 16,
             padding: 12,
             borderRadius: 30,
             flex: 1,
@@ -215,13 +235,14 @@ const ChatComponent = () => {
 const styles = StyleSheet.create({
   chatContainer: {
     flex: 1,
-    gap: 12,
+    gap: 16,
   },
   messageContainer: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "black",
+    // borderWidth: 1,
+    // borderColor: "black",
     rowGap: 16,
+    paddingRight: 12,
   },
   inputContainer: {
     width: "100%",
@@ -229,6 +250,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     columnGap: 12,
+    paddingRight: 12,
   },
 });
 

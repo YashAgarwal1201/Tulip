@@ -98,11 +98,11 @@ const NavigationBar = () => {
           }}
         >
           <Ionicons
-            name={"share-social"}
+            name={"chatbox"}
             size={16}
             style={[styles.iconStyle, getLinkStyles("/fileShare")]}
           />
-          <Text style={styles.label}>File Share</Text>
+          <Text style={styles.label}>Chat</Text>
         </Pressable>
         {/* </TouchableOpacity> */}
       </Link>

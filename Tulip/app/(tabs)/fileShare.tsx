@@ -1,13 +1,12 @@
 import ChatComponent from "@/components/ChatComponent/ChatComponent";
+import { xl2 } from "@/constants/ViewportBreakpoints";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 
 export default function fileShare() {
   return (
-    <View style={styles.homePageScreen}>
-      <View style={styles.container}>
-        {/* <Text style={styles.text}>Coming soon!!</Text> */}
-        <ChatComponent />
-      </View>
+    <View style={[styles.homePageScreen, { maxWidth: "auto" }]}>
+      {/* <Text style={styles.text}>Coming soon!!</Text> */}
+      <ChatComponent />
     </View>
   );
 }
@@ -15,6 +14,7 @@ export default function fileShare() {
 const styles = StyleSheet.create({
   homePageScreen: {
     padding: 12,
+    paddingRight: 0,
     flex: 1,
   },
   container: {
