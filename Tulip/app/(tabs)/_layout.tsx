@@ -15,6 +15,7 @@ export default function TabLayout() {
         { flexDirection: width < mdl ? "column-reverse" : "row" },
       ]}
     >
+      <StatusBar barStyle={"dark-content"} />
       <Navigator router={TabRouter}>
         <View
           style={[
